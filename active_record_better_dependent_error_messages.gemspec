@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ["kaspernj"]
   s.email       = ["kaspernj@gmail.com"]
   s.homepage    = "https://github.com/kaspernj/active-record-better-dependent-error-messages"
-  s.summary     = "TODO: Summary of ActiveRecordBetterDependentErrorMessages."
-  s.description = "TODO: Description of ActiveRecordBetterDependentErrorMessages."
+  s.summary     = "A gem that makes better dependent error messages telling exactly which relationship tree failed with which ID's."
+  s.description = "A gem that makes better dependent error messages telling exactly which relationship tree failed with which ID's."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

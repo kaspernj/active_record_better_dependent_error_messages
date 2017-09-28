@@ -8,7 +8,7 @@ How to use my plugin.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'active_record_better_dependent_error_messages'
+gem "active_record_better_dependent_error_messages"
 ```
 
 And then execute:
@@ -19,6 +19,13 @@ $ bundle
 Or install it yourself as:
 ```bash
 $ gem install active_record_better_dependent_error_messages
+```
+
+Include it in the models where you want it to inspect the relationships upon destroy like this:
+```ruby
+class MyModel < ApplicationRecord
+  include ActiveRecordBetterDependentErrorMessages::DestroyModule
+end
 ```
 
 ## Contributing
