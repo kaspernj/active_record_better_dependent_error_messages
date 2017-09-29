@@ -1,7 +1,11 @@
 module ActiveRecordBetterDependentErrorMessages::DestroyModule
   def destroy
-    ActiveRecordBetterDependentErrorMessages::DestroyValidator.(model: self)
-    return false if errors.any?
-    super
+    result = super
+
+    if !result && errors.empty?
+      ActiveRecordBetterDependentErrorMessages::DestroyValidator.(model: self)
+    end
+
+    result
   end
 end
