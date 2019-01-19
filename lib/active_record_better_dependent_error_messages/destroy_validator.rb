@@ -31,7 +31,7 @@ private
     if association.macro == :has_one
       has_one_model = model.__send__(association.name)
 
-      if has_one_model
+      if has_one_model && !has_error?
         root_model.errors.add(
           :base,
           :cannot_delete_because_of_restriction,
@@ -40,7 +40,7 @@ private
           default: "Cannot delete because of #{trace_as_string} has dependent record: #{association.name} with ID: #{has_one_model.id}"
         )
       end
-    elsif association.macro == :has_many
+    elsif association.macro == :has_many && !has_error?
       ids = model.__send__(association.name).pluck(:id)
       if ids.any?
         root_model.errors.add(
@@ -64,6 +64,10 @@ private
         ActiveRecordBetterDependentErrorMessages::DestroyValidator.(root_model: root_model, model: sub_model_i, trace: trace + [sub_model_i])
       end
     end
+  end
+
+  def has_error?
+    root_model.errors.details[:base] && root_model.errors.details[:base].any? { |error| error[:error] == :cannot_delete_because_of_restriction }
   end
 
   def trace_as_string
