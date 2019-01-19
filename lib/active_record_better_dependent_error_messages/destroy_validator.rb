@@ -32,12 +32,24 @@ private
       has_one_model = model.__send__(association.name)
 
       if has_one_model
-        root_model.errors.add(:base, "Cannot delete because of #{trace_as_string} has dependent record: #{association.name} with ID: #{has_one_model.id}")
+        root_model.errors.add(
+          :base,
+          :cannot_delete_because_of_restriction,
+          association_name: association.klass.model_name.human(count: 1).downcase,
+          count: 1,
+          default: "Cannot delete because of #{trace_as_string} has dependent record: #{association.name} with ID: #{has_one_model.id}"
+        )
       end
     elsif association.macro == :has_many
       ids = model.__send__(association.name).pluck(:id)
       if ids.any?
-        root_model.errors.add(:base, "Cannot delete because of #{trace_as_string} has dependent records: #{association.name} with IDs: #{ids.join(", ")}")
+        root_model.errors.add(
+          :base,
+          :cannot_delete_because_of_restriction,
+          association_name: association.klass.model_name.human(count: 2).downcase,
+          count: ids.length,
+          default: "Cannot delete because of #{trace_as_string} has dependent records: #{association.name} with IDs: #{ids.join(", ")}"
+        )
       end
     end
   end

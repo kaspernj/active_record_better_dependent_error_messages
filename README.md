@@ -28,6 +28,18 @@ class MyModel < ApplicationRecord
 end
 ```
 
+You can add a custom error message like this:
+```yaml
+en:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            base:
+              cannot_delete_because_of_restriction: Cannot delete because the user has dependent %{association_name}
+```
+
 ## Contributing
 Contribution directions go here.
 
