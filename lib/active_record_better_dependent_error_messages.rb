@@ -5,4 +5,6 @@ module ActiveRecordBetterDependentErrorMessages
 
   autoload :DestroyModule, "#{path}/destroy_module"
   autoload :DestroyValidator, "#{path}/destroy_validator"
+  autoload :ErrorsCollector, "#{path}/errors_collector"
+  autoload :SaveModule, "#{path}/save_module"
 end

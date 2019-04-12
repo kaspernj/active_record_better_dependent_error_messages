@@ -1,5 +1,5 @@
 module ActiveRecordBetterDependentErrorMessages::DestroyModule
-  def destroy
+  def destroy(*_args)
     result = super
 
     if !result && errors.empty?
