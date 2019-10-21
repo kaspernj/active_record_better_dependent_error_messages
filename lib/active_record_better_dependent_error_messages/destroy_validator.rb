@@ -37,7 +37,7 @@ private
           :cannot_delete_because_of_restriction,
           association_name: association.klass.model_name.human(count: 1).downcase,
           count: 1,
-          default: "Cannot delete because of #{trace_as_string} has dependent record: #{association.name} with ID: #{has_one_model.id}",
+          message: "Cannot delete because of #{trace_as_string} has dependent record: #{association.name} with ID: #{has_one_model.id}",
           model_name: model.model_name.human.downcase
         )
       end
@@ -49,7 +49,7 @@ private
           :cannot_delete_because_of_restriction,
           association_name: association.klass.model_name.human(count: 2).downcase,
           count: ids.length,
-          default: "Cannot delete because of #{trace_as_string} has dependent records: #{association.name} with IDs: #{ids.join(", ")}",
+          message: "Cannot delete because of #{trace_as_string} has dependent records: #{association.name} with IDs: #{ids.join(", ")}",
           model_name: model.model_name.human.downcase
         )
       end
