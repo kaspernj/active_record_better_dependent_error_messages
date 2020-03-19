@@ -1,4 +1,5 @@
 before_script:
   - RAILS_ENV=test bundle exec rake db:schema:load
+rvm: true
 script:
   - xvfb-run bundle exec rspec
