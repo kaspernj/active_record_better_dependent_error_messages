@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
 # Declare your gem's dependencies in active_record_better_dependent_error_messages.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
