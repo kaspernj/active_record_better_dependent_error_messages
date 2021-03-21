@@ -43,6 +43,7 @@ private
       end
     elsif association.macro == :has_many && !has_error?
       ids = model.__send__(association.name).pluck(:id)
+
       if ids.any?
         root_model.errors.add(
           :base,
@@ -58,14 +59,48 @@ private
 
   def check_sub_destroy_association(association)
     if association.macro == :has_one
-      sub_model = model.__send__(association.name)
-      ActiveRecordBetterDependentErrorMessages::DestroyValidator.(root_model: root_model, model: sub_model, trace: trace + [sub_model]) if sub_model
+      sub_model = model.association(association.name).target
+
+      if sub_model
+        extract_sub_destroy_errors(association, sub_model)
+        ActiveRecordBetterDependentErrorMessages::DestroyValidator.(root_model: root_model, model: sub_model, trace: trace + [sub_model])
+      end
     elsif association.macro == :has_many
-      sub_models = model.__send__(association.name)
-      sub_models.find_each do |sub_model_i|
+      sub_models = model.association(association.name).target
+
+      sub_models.each do |sub_model_i|
+        extract_sub_destroy_errors(association, sub_model_i)
         ActiveRecordBetterDependentErrorMessages::DestroyValidator.(root_model: root_model, model: sub_model_i, trace: trace + [sub_model_i])
       end
     end
+  end
+
+  def extract_sub_destroy_errors(association, model)
+    return unless model_has_custom_errors?(model)
+
+    root_model.errors.add(
+      :base,
+      :cannot_delete_because_of_child_errors,
+      association_name: association.klass.model_name.human(count: 2).downcase,
+      count: 1,
+      message: "Cannot delete because of child errors in #{association.name} with IDs: #{model.id}: #{model.errors.full_messages.join(". ")}",
+      model_name: model.model_name.human.downcase
+    )
+  end
+
+  def model_has_custom_errors?(model)
+    custom_errors = 0
+
+    model.errors.details.each do |error_types_with_detail|
+      attribute = error_types_with_detail.fetch(0)
+      errors = error_types_with_detail.fetch(1)
+
+      errors.each do |error|
+        custom_errors += 1 unless error.fetch(:error) == :"restrict_dependent_destroy.has_many"
+      end
+    end
+
+    custom_errors > 0
   end
 
   def has_error?
