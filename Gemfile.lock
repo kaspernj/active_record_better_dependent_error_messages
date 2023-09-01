@@ -99,7 +99,7 @@ GEM
     marcel (1.0.2)
     method_source (0.9.2)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.2)
+    mini_portile2 (2.8.4)
     minitest (5.19.0)
     net-imap (0.3.6)
       date
@@ -169,7 +169,7 @@ GEM
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
     rspec-support (3.12.0)
-    sqlite3 (1.6.3)
+    sqlite3 (1.6.4)
       mini_portile2 (~> 2.8.0)
     thor (1.2.2)
     timeout (0.4.0)
