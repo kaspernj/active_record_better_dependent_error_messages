@@ -1,5 +1,12 @@
 before_script:
   - RAILS_ENV=test bundle exec rake db:schema:load
+paths:
+  - "**/*"
+  - "!**/*.md"
+  - "!**/*.markdown"
+  - "!**/CHANGELOG*"
+  - "!**/LICENSE*"
+  - "!**/MIT-LICENSE"
 rvm: true
 builds:
   build_1:
