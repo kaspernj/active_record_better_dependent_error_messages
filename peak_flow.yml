@@ -3,14 +3,28 @@ before_script:
 rvm: true
 builds:
   build_1:
+    paths:
+      - "**/*"
+      - "!**/*.md"
+      - "!**/*.markdown"
+      - "!**/CHANGELOG*"
+      - "!**/LICENSE*"
+      - "!**/MIT-LICENSE"
     environment:
-      RUBY_VERSION: 2.7.5
-    name: Ruby 2.7.5
+      RUBY_VERSION: 3.2.9
+    name: Ruby 3.2.9
     script:
       - xvfb-run bundle exec rspec
   build_2:
+    paths:
+      - "**/*"
+      - "!**/*.md"
+      - "!**/*.markdown"
+      - "!**/CHANGELOG*"
+      - "!**/LICENSE*"
+      - "!**/MIT-LICENSE"
     environment:
-      RUBY_VERSION: 3.0.3
-    name: Ruby 3.0.3
+      RUBY_VERSION: 3.2.9
+    name: Ruby 3.2.9
     script:
       - xvfb-run bundle exec rspec
