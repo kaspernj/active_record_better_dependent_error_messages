@@ -1,5 +1,5 @@
 # ActiveRecordBetterDependentErrorMessages
-Short description and motivation.
+Short description and motivation (docs-only path-filter probe).
 
 ## Usage
 How to use my plugin.
